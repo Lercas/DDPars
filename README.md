@@ -20,6 +20,12 @@ DDPars is a concurrent DNS dump parser written in Go. It extracts domain names f
 
 ### Step-by-Step Installation
 
+```bash
+go install github.com/Lercas/DDPars
+```
+
+OR
+
 1. Clone the repository:
     ```bash
     git clone https://github.com/Lercas/DDPars.git
@@ -33,9 +39,10 @@ DDPars is a concurrent DNS dump parser written in Go. It extracts domain names f
     go get github.com/miekg/dns
     ```
 
+
 ## Usage
 
 Run the tool using the following command:
 
 ```bash
-go run main.go /input_folder
+DDpars folder/
