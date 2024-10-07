@@ -30,7 +30,6 @@ func main() {
 	domainChan := make(chan string, 1000)
 	done := make(chan struct{})
 
-	// Domain collector goroutine
 	go func() {
 		outputFile, err := os.Create("domains.txt")
 		if err != nil {
@@ -50,7 +49,7 @@ func main() {
 		close(done)
 	}()
 
-	// Start worker goroutines
+	
 	for i := 0; i < 10; i++ {
 		wg.Add(1)
 		go func() {
@@ -61,7 +60,6 @@ func main() {
 		}()
 	}
 
-	// Feed file paths to workers
 	for _, file := range files {
 		if !file.IsDir() {
 			fullPath := filepath.Join(inputFolder, file.Name())
@@ -90,15 +88,12 @@ func parseFile(filePath string, domainChan chan<- string) {
 		}
 		domain := rr.Header().Name
 
-		// Skip domains containing "*"
 		if strings.Contains(domain, "*") {
 			continue
 		}
 
-		// Remove trailing dot
 		domain = strings.TrimSuffix(domain, ".")
 
-		// Remove all underscores
 		domain = strings.ReplaceAll(domain, "_", "")
 
 		domainChan <- domain
